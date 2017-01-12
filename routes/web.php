@@ -1,5 +1,9 @@
 <?php
 
 Route::get('/', function () {
-    return view('home');
+    return view('home')->with([
+        'images' => collect()
+    ]);
 });
+
+Route::resource('media', 'MediaController', ['only' => ['store']]);

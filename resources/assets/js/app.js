@@ -1,20 +1,28 @@
+'use strict';
 
-/**
- * First we will load all of this project's JavaScript dependencies which
- * include Vue and Vue Resource. This gives a great starting point for
- * building robust, powerful web applications using Vue and Laravel.
- */
+$(function () {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
 
-require('./bootstrap');
+    $('#media').change(function(e){
+        $('#mediaLabel').text('Выбрано изображение ' + e.currentTarget.files[0].name);
+    });
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the body of the page. From here, you may begin adding components to
- * the application, or feel free to tweak this setup for your needs.
- */
+    $('#mediaUploadForm').submit(function (e) {
+        e.preventDefault();
 
-Vue.component('example', require('./components/Example.vue'));
+        var formData = new FormData();
+        formData.append('media', $('#media')[0].files[0]);
+        formData.append('filename', $('#fileName').val());
 
-const app = new Vue({
-    el: '#app'
+        $.ajax('media', {
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false
+        });
+    });
 });
