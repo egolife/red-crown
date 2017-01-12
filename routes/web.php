@@ -1,9 +1,7 @@
 <?php
 
 Route::get('/', function () {
-    return view('home')->with([
-        'images' => collect()
-    ]);
+    return redirect()->route('media.index');
 });
 
-Route::resource('media', 'MediaController', ['only' => ['store']]);
+Route::resource('media', 'MediaController', ['only' => ['store', 'index']]);

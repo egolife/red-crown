@@ -13,7 +13,12 @@
                 {{ csrf_field() }}
                 <div class="form-group">
                     <div class="col-sm-12">
-                        <input type="text" name="filename" id="fileName" class="form-control" placeholder="Наименование изображения">
+                        <input type="text"
+                               name="filename"
+                               id="fileName"
+                               class="form-control"
+                               placeholder="Наименование изображения"
+                        >
                     </div>
                 </div>
 
@@ -29,6 +34,10 @@
                         <button type="submit" class="btn btn-success">Загрузить фотографию</button>
                     </div>
                 </div>
+
+                <ul id="serverMessages" class="text-danger">
+
+                </ul>
             </form>
         </div>
 
@@ -38,9 +47,9 @@
     </div>
 
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-12 text-center" id="gallery">
             @foreach($images as $image)
-                <img src="{{ $image->src }}" alt="{{ $image->alt }}" class="image-responsive">
+                @include('media.item')
             @endforeach
         </div>
     </div>
