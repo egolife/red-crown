@@ -8,6 +8,7 @@ $(function () {
     });
     var default_label = $('#mediaLabel').text();
     var current_page = 1;
+    var modal = $('#mediaModal');
 
     $('#media').change(function (e) {
         $('#mediaLabel').text('Выбрано изображение ' + e.currentTarget.files[0].name);
@@ -58,5 +59,15 @@ $(function () {
                 $('#gallery').append(response.html);
             });
         }
+    });
+
+    $('#showRandBtn').click(function (e) {
+        var $el = $(this);
+
+        $.get('media/random', function (response) {
+            modal.find('.modal-body').html('<img class="img-responsive center-block" src="' + response.path + '">');
+            modal.modal('show');
+        });
+
     });
 });

@@ -42,7 +42,7 @@
         </div>
 
         <div class="col-sm-offset-1 col-sm-6">
-            <button type="button" class="btn btn-primary btn-lg">Покажите мне случайное<br> изображение</button>
+            <button type="button" class="btn btn-primary btn-lg" id="showRandBtn">Покажите мне случайное<br> изображение</button>
         </div>
     </div>
 
@@ -53,4 +53,6 @@
             @endforeach
         </div>
     </div>
+
+    @include('media.modal')
 @stop

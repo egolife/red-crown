@@ -44,8 +44,18 @@ class MediaController extends Controller
 
         return response()->json([
             'message' => 'Файл добавлен в медиатеку',
-            'path' => Media::BASE_DIR . $file_path,
+            'path' => $media->src,
             'html' => view('media.item', ['image' => $media])->render()
         ], Response::HTTP_CREATED);
+    }
+
+    public function showRandom()
+    {
+        $media = Media::query()->skip(mt_rand(0, Media::count() - 1))->first();
+
+        return response()->json([
+            'path' => $media->src,
+            'status' => 'success'
+        ]);
     }
 }
