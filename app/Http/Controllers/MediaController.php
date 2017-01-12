@@ -9,10 +9,20 @@ use RedCrown\Media;
 
 class MediaController extends Controller
 {
+    const ITEMS_PER_PAGE = 6;
+
     public function index()
     {
+        $images = Media::query()->paginate(self::ITEMS_PER_PAGE);
+
+        if (request()->ajax()) {
+            return response()->json([
+                'html' => view('media.paginate', ['images' => $images])->render()
+            ]);
+        }
+
         return view('media.index')->with([
-            'images' => Media::all()
+            'images' => $images
         ]);
     }
 

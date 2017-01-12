@@ -7,6 +7,7 @@ $(function () {
         }
     });
     var default_label = $('#mediaLabel').text();
+    var current_page = 1;
 
     $('#media').change(function (e) {
         $('#mediaLabel').text('Выбрано изображение ' + e.currentTarget.files[0].name);
@@ -35,8 +36,8 @@ $(function () {
                     });
                 } else {
                     output = '<li>'
-                    + (response.hasOwnProperty('message') ? response.message : 'Неопознанная ошибка')
-                    + '</li>';
+                        + (response.hasOwnProperty('message') ? response.message : 'Неопознанная ошибка')
+                        + '</li>';
                 }
 
                 $('#serverMessages').html(output);
@@ -48,5 +49,14 @@ $(function () {
 
                 $('#gallery').append(response.html);
             });
+    });
+
+    $(window).scroll(function () {
+        if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
+            current_page++;
+            $.get('media?page=' + current_page, function (response) {
+                $('#gallery').append(response.html);
+            });
+        }
     });
 });
